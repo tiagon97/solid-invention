@@ -12,6 +12,7 @@ Vue.config.productionTip = false;
 const firebaseConfig = {
   apiKey: "AIzaSyBpYiLPIaP9sZ-DBDGqWGMfjQEfeZE8lnU",
   authDomain: "diet-app-c32ac.firebaseapp.com",
+  databaseURL: "https://diet-app-c32ac-default-rtdb.firebaseio.com",
   projectId: "diet-app-c32ac",
   storageBucket: "diet-app-c32ac.appspot.com",
   messagingSenderId: "746821723409",
@@ -19,6 +20,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
 
 let app;
 
