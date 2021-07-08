@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
   <div class="card-container">
     <div class="upper-container">
@@ -100,3 +101,19 @@ export default {
   font-size: 20px;
 }
 </style>
+=======
+<template>
+  <div>
+    <the-form></the-form>
+  </div>
+</template>
+
+<script>
+import TheForm from "./TheForm.vue";
+export default {
+  components: {
+    TheForm,
+  },
+};
+</script>
+>>>>>>> ef5e4bfab1da11cc05cd38981100207298ab5473
