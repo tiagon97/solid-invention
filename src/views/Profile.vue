@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <template>
   <div class="card-container">
     <div class="upper-container">
@@ -12,34 +11,34 @@
         <h3>
           {{ currentUser }}
         </h3>
-        <h5>Pozostało kalorii: {{kcalResult}} </h5>
+        <h5>Pozostało kalorii: {{ kcalResult }}</h5>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase';
+import firebase from "firebase";
 var kcal;
 
 export default {
-  name: 'profile',
+  name: "profile",
   data() {
     return {};
   },
   created() {
     if (firebase.auth().currentUser) {
       this.currentUser = firebase.auth().currentUser.email;
-      this.currentUser = this.currentUser.split('@')[0];
+      this.currentUser = this.currentUser.split("@")[0];
 
       var rootRef = firebase
         .database()
         .ref()
-        .child('users');
+        .child("users");
       var userID = firebase.auth().currentUser.uid;
       var usersRef = rootRef.child(userID);
 
-      usersRef.once('value', function(snapshot) {
+      usersRef.once("value", function(snapshot) {
         kcal = snapshot.val().kcalResult;
         console.log(kcal);
       });
@@ -101,19 +100,3 @@ export default {
   font-size: 20px;
 }
 </style>
-=======
-<template>
-  <div>
-    <the-form></the-form>
-  </div>
-</template>
-
-<script>
-import TheForm from "./TheForm.vue";
-export default {
-  components: {
-    TheForm,
-  },
-};
-</script>
->>>>>>> ef5e4bfab1da11cc05cd38981100207298ab5473
