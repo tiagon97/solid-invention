@@ -11,7 +11,7 @@
         <h3>
           {{ currentUser }}
         </h3>
-        <h5>Pozostało kalorii: {{ kcalResult }}</h5>
+        <h5>Pozostało kalorii: {{ kcal }}</h5>
       </div>
     </div>
   </div>
@@ -19,12 +19,13 @@
 
 <script>
 import firebase from "firebase";
-var kcal;
 
 export default {
   name: "profile",
   data() {
-    return {};
+    return {
+      kcal: null,
+    };
   },
   created() {
     if (firebase.auth().currentUser) {
@@ -35,13 +36,19 @@ export default {
         .database()
         .ref()
         .child("users");
+
       var userID = firebase.auth().currentUser.uid;
       var usersRef = rootRef.child(userID);
 
-      usersRef.once("value", function(snapshot) {
-        kcal = snapshot.val().kcalResult;
-        console.log(kcal);
-      });
+      console.log(userID);
+      console.log(usersRef);
+
+      usersRef
+        .once("value")
+        .then(function(snapshot) {
+          return snapshot.val().kcalResult;
+        })
+        .then((kcalRes) => (this.kcal = kcalRes));
     }
   },
 };
