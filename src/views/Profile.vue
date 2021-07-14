@@ -7,7 +7,6 @@
         </div>
       </div>
 
-<<<<<<< HEAD
       <div class="lower-container">
         <div>
           <h3>
@@ -15,14 +14,6 @@
           </h3>
           <h5>Pozostało kalorii: {{ kcal }}</h5>
         </div>
-=======
-    <div class="lower-container">
-      <div>
-        <h3>
-          {{ currentUser }}
-        </h3>
-        <h5>Pozostało kalorii: {{ kcal }}</h5>
->>>>>>> 3a51567af6e228a01642e2fb86be23b152081c9a
       </div>
     </div>
     <div class="table-responsive">
@@ -48,54 +39,35 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import firebase from 'firebase';
-=======
-import firebase from "firebase";
->>>>>>> 3a51567af6e228a01642e2fb86be23b152081c9a
 
 export default {
-  name: "profile",
+  name: 'profile',
   data() {
     return {
       kcal: null,
-<<<<<<< HEAD
       ingredient: {
         name: null,
         count: null
       },
       ingredients: [],
-=======
->>>>>>> 3a51567af6e228a01642e2fb86be23b152081c9a
     };
   },
   created() {
     if (firebase.auth().currentUser) {
       this.currentUser = firebase.auth().currentUser.email;
-      this.currentUser = this.currentUser.split("@")[0];
+      this.currentUser = this.currentUser.split('@')[0];
 
       var rootRef = firebase
         .database()
         .ref()
-<<<<<<< HEAD
         .child('users');
-=======
-        .child("users");
->>>>>>> 3a51567af6e228a01642e2fb86be23b152081c9a
 
       var userID = firebase.auth().currentUser.uid;
       var usersRef = rootRef.child(userID);
 
-<<<<<<< HEAD
       usersRef
         .once('value')
-=======
-      console.log(userID);
-      console.log(usersRef);
-
-      usersRef
-        .once("value")
->>>>>>> 3a51567af6e228a01642e2fb86be23b152081c9a
         .then(function(snapshot) {
           return snapshot.val().kcalResult;
         })
