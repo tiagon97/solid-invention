@@ -1,31 +1,57 @@
-<<<<<<< HEAD
 <template>
-  <div class="card-container">
-    <div class="upper-container">
-      <div class="image-container">
-        <img src="../assets/profile.jpg" />
+  <div>
+    <div class="card-container">
+      <div class="upper-container">
+        <div class="image-container">
+          <img src="../assets/profile.jpg" />
+        </div>
+      </div>
+
+      <div class="lower-container">
+        <div>
+          <h3>
+            {{ currentUser }}
+          </h3>
+          <h5>Pozostało kalorii: {{ kcal }}</h5>
+        </div>
       </div>
     </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nazwa produktu</th>
+            <th>Ilosc kalorii</th>
+          </tr>
+        </thead>
 
-    <div class="lower-container">
-      <div>
-        <h3>
-          {{ currentUser }}
-        </h3>
-        <h5>Pozostało kalorii: {{kcalResult}} </h5>
-      </div>
+        <tbody>
+          <tr v-for="ingredient in ingredients" :key="ingredient">
+            <td>
+              <th>{{ingredient.name}}</th>
+              <th>{{ingredient.count}}</th>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase';
-var kcal;
 
 export default {
   name: 'profile',
   data() {
-    return {};
+    return {
+      kcal: null,
+      ingredient: {
+        name: null,
+        count: null
+      },
+      ingredients: [],
+    };
   },
   created() {
     if (firebase.auth().currentUser) {
@@ -36,14 +62,24 @@ export default {
         .database()
         .ref()
         .child('users');
+
       var userID = firebase.auth().currentUser.uid;
       var usersRef = rootRef.child(userID);
 
-      usersRef.once('value', function(snapshot) {
-        kcal = snapshot.val().kcalResult;
-        console.log(kcal);
-      });
+      usersRef
+        .once('value')
+        .then(function(snapshot) {
+          return snapshot.val().kcalResult;
+        })
+        .then((kcalRes) => (this.kcal = kcalRes));
     }
+
+    firebase
+      .database()
+      .ref('ingredients')
+      .on('value', (snapshot) => {
+        this.ingredients = snapshot.val();
+      });
   },
 };
 </script>
@@ -101,19 +137,3 @@ export default {
   font-size: 20px;
 }
 </style>
-=======
-<template>
-  <div>
-    <the-form></the-form>
-  </div>
-</template>
-
-<script>
-import TheForm from "./TheForm.vue";
-export default {
-  components: {
-    TheForm,
-  },
-};
-</script>
->>>>>>> ef5e4bfab1da11cc05cd38981100207298ab5473

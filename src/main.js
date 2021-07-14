@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios';
 import firebase from 'firebase'
+import "firebase/database";
 
 
 Vue.prototype.$axios = axios;
@@ -21,6 +22,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+window.firebase=firebase;
+
+const db = firebase.database();
+
+export default db;
 
 let app;
 
