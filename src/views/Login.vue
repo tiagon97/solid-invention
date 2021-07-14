@@ -78,22 +78,22 @@
 </template>
 
 <script>
-import firebase from 'firebase';
-import { validationMixin } from 'vuelidate';
+import firebase from "firebase";
+import { validationMixin } from "vuelidate";
 import {
   required,
   minLength,
   maxLength,
   email,
-} from 'vuelidate/lib/validators';
+} from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
-  name: 'login',
+  name: "login",
   data: function() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     };
   },
   methods: {
@@ -105,7 +105,7 @@ export default {
           (user) => {
             alert(`Jesteś zalogowany jako ${user.user.email}`);
             console.log(user);
-            this.$router.push('/profile');
+            this.$router.push("/profile");
           },
           (err) => {
             alert(err.message);

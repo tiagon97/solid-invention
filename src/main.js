@@ -1,12 +1,11 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import axios from 'axios';
-import firebase from 'firebase'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
+import axios from "axios";
+import firebase from "firebase";
 import "firebase/database";
-
-
+import vuetify from "@/plugins/vuetify";
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
@@ -17,12 +16,12 @@ const firebaseConfig = {
   projectId: "diet-app-c32ac",
   storageBucket: "diet-app-c32ac.appspot.com",
   messagingSenderId: "746821723409",
-  appId: "1:746821723409:web:49e5458d30559d0f1a58b0"
+  appId: "1:746821723409:web:49e5458d30559d0f1a58b0",
 };
 
 firebase.initializeApp(firebaseConfig);
 
-window.firebase=firebase;
+window.firebase = firebase;
 
 const db = firebase.database();
 
@@ -30,13 +29,14 @@ export default db;
 
 let app;
 
-firebase.auth().onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged((user) => {
   console.log("user", user);
   if (!app) {
     app = new Vue({
+      vuetify,
       router,
       store,
-      render: h => h(App)
+      render: (h) => h(App),
     }).$mount("#app");
   }
 });

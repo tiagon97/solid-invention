@@ -16,58 +16,46 @@
         </div>
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nazwa produktu</th>
-            <th>Ilosc kalorii</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr v-for="ingredient in ingredients" :key="ingredient">
-            <td>
-              <th>{{ingredient.name}}</th>
-              <th>{{ingredient.count}}</th>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <v-data-table :headers="headers" :items="ingredients" dark></v-data-table>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase';
+import firebase from "firebase";
 
 export default {
-  name: 'profile',
+  name: "profile",
   data() {
     return {
+      headers: [
+        {
+          text: "Pyszny produkt",
+          align: "start",
+          sortable: true,
+          value: "name",
+        },
+        { text: "Kalorie", value: "count" },
+      ],
+
       kcal: null,
-      ingredient: {
-        name: null,
-        count: null
-      },
       ingredients: [],
     };
   },
   created() {
     if (firebase.auth().currentUser) {
       this.currentUser = firebase.auth().currentUser.email;
-      this.currentUser = this.currentUser.split('@')[0];
+      this.currentUser = this.currentUser.split("@")[0];
 
       var rootRef = firebase
         .database()
         .ref()
-        .child('users');
+        .child("users");
 
       var userID = firebase.auth().currentUser.uid;
       var usersRef = rootRef.child(userID);
 
       usersRef
-        .once('value')
+        .once("value")
         .then(function(snapshot) {
           return snapshot.val().kcalResult;
         })
@@ -76,15 +64,23 @@ export default {
 
     firebase
       .database()
-      .ref('ingredients')
-      .on('value', (snapshot) => {
+      .ref("ingredients")
+      .on("value", (snapshot) => {
         this.ingredients = snapshot.val();
+        console.log(snapshot.val());
       });
   },
 };
 </script>
 
 <style>
+.v-data-table {
+  margin-top: 400px;
+}
+
+.v-data-footer__icons-before {
+  color: darkcyan;
+}
 .card-container {
   width: 500px;
   height: 350px;
