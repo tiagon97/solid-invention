@@ -1,28 +1,27 @@
-<template> 
-  <div class="app">
-    <Navbar :key="$route.fullPath"/>
-    <div class="container">
-      <router-view/>
-     </div>
-  </div>
+<template>
+    <div class="app">
+        <Navbar :key="$route.fullPath" />
+        <div class="container">
+            <router-view />
+        </div>
+    </div>
 </template>
 
 <script>
-import Navbar from './views/Navbar'
-  export default{
-    name: 'app',
+import Navbar from "./views/Navbar";
+export default {
+    name: "app",
     components: {
-      Navbar
-    }
-  }
+        Navbar,
+    },
+};
 </script>
 
 <style lang="scss">
-body{
-  background: #2c3e50;
-
+body {
+    background: #2c3e50;
 }
-a{
-  color: inherit;
+a {
+    color: inherit;
 }
 </style>
